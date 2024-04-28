@@ -4,7 +4,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 
 defineProps({
     status: {
@@ -23,39 +23,39 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Forgot Password" />
 
-        <div class="mb-4 text-sm text-gray-600">
-            Forgot your password? No problem. Just let us know your email address and we will email you a password reset
-            link that will allow you to choose a new one.
-        </div>
+        <Head :title="$t('forgot-password.title')" />
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
-        </div>
-
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
+        <div class="my-auto">
+            <div class="text-center">
+                <h4 class="font-medium text-gray-700 dark:text-gray-100">{{ $t('forgot-password.heading') }}
+                </h4>
+                <p class="mt-2 mb-4 text-gray-500 dark:text-gray-100/60">{{ $t('forgot-password.sub-heading') }}</p>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Email Password Reset Link
-                </PrimaryButton>
+            <form class="pt-2 mt-4" @submit.prevent="submit">
+                <div class="mb-4">
+                    <InputLabel for="email" :value="$t('login.form.email.label')" />
+                    <TextInput type="email" class="w-full" id="email" :placeholder="$t('login.form.email.placeholder')"
+                        v-model="form.email" required autofocus autocomplete="email" />
+                    <InputError class="mt-1.5" :message="form.errors.email" />
+                </div>
+
+                <div class="flex items-center justify-end mt-6 mb-5">
+                    <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                        {{ $t('forgot-password.form.submit-button-text') }}
+                    </PrimaryButton>
+                </div>
+            </form>
+
+            <div class="mt-12 text-center">
+                <p class="text-gray-500 dark:text-gray-100">{{
+                    $t('forgot-password.remember-it') }}
+                    <Link :href="route('login')" class="font-semibold text-violet-500">
+                    {{ $t('login.title') }}
+                    </Link>
+                </p>
             </div>
-        </form>
+        </div>
     </GuestLayout>
 </template>

@@ -1,10 +1,16 @@
 <script setup>
+import { computed } from 'vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import SocialLogin from '@/Components/SocialLogin.vue';
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
+import PasswordInput from '@/Components/PasswordInput.vue';
+
+const page = usePage();
+const appName = computed(() => page.props.appName);
 
 const form = useForm({
     name: '',
@@ -22,82 +28,70 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Register" />
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="name" value="Name" />
+        <Head :title="$t('register.title')" />
 
-                <TextInput
-                    id="name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.name"
-                    required
-                    autofocus
-                    autocomplete="name"
-                />
-
-                <InputError class="mt-2" :message="form.errors.name" />
+        <div class="my-auto">
+            <div class="text-center">
+                <h4 class="font-medium text-gray-700 dark:text-gray-100">{{ $t('register.heading') }}
+                </h4>
+                <p class="mt-2 mb-4 text-gray-500 dark:text-gray-100/60">{{ $t('register.sub-heading',
+                    { appName: appName }) }}</p>
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="email" value="Email" />
+            <form class="pt-2 mt-4" @submit.prevent="submit">
+                <div class="mb-4">
+                    <InputLabel for="name" :value="$t('register.form.name.label')" />
+                    <TextInput type="text" class="w-full" id="name" :placeholder="$t('register.form.name.placeholder')"
+                        v-model="form.name" required autofocus autocomplete="name" />
+                    <InputError class="mt-1.5" :message="form.errors.name" />
+                </div>
 
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autocomplete="username"
-                />
+                <div class="mb-4">
+                    <InputLabel for="email" :value="$t('login.form.email.label')" />
+                    <TextInput type="email" class="w-full" id="email" :placeholder="$t('login.form.email.placeholder')"
+                        v-model="form.email" required autocomplete="email" />
+                    <InputError class="mt-1.5" :message="form.errors.email" />
+                </div>
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <div class="mb-4">
+                    <InputLabel for="password" :value="$t('login.form.password.label')" />
+                    <PasswordInput v-model="form.password" :placeholder="$t('login.form.password.placeholder')" />
+                    <InputError class="mt-1.5" :message="form.errors.password" />
+                </div>
+
+                <div class="mb-4">
+                    <InputLabel for="confirm-password" :value="$t('register.form.password-confirmation.label')" />
+                    <PasswordInput v-model="form.password_confirmation" :placeholder="$t('register.form.password-confirmation.placeholder')" />
+                    <InputError class="mt-1.5" :message="form.errors.password_confirmation" />
+                </div>
+                <div class="mb-6 row">
+                    <div class="col">
+                        <div>
+                            <InputLabel>{{ $t('register.form.terms-aggre-label', { appName: appName }) }}
+                                <Link class="text-violet-500" href="/">{{ $t('register.form.terms-use-link') }}</Link>
+                            </InputLabel>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="mb-4">
+                    <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">{{
+                        $t('register.title') }}
+                    </PrimaryButton>
+                </div>
+            </form>
+
+            <SocialLogin />
+
+            <div class="mt-12 text-center">
+                <p class="text-gray-500 dark:text-gray-100">{{
+                    $t('register.already-have-an-account') }}
+                    <Link :href="route('login')" class="font-semibold text-violet-500">
+                    {{ $t('login.title') }}
+                    </Link>
+                </p>
             </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password_confirmation" value="Confirm Password" />
-
-                <TextInput
-                    id="password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password_confirmation" />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <Link
-                    :href="route('login')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    Already registered?
-                </Link>
-
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Register
-                </PrimaryButton>
-            </div>
-        </form>
+        </div>
     </GuestLayout>
 </template>

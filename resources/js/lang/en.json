@@ -4,8 +4,9 @@
         "pt": "Portuguese"
     },
     "login": {
-        "title": "Welcome Back!",
-        "sub-title": "Sign in to continue to {appName}.",
+        "title": "Login",
+        "heading": "Welcome Back!",
+        "sub-heading": "Sign in to continue to {appName}.",
         "form": {
             "email": {
                 "label": "Email",
@@ -16,11 +17,41 @@
                 "placeholder": "Enter password"
             },
             "forgot-password": "Forgot password?",
-            "remember-me": "Remember me",
-            "submit-button-text": "Log In"
+            "remember-me": "Remember me"
         },
         "sign-in-with": "- Sign in with -",
         "dont-have-an-account": "Don't have an account?",
         "sign-up": "Signup now"
+    },
+    "register": {
+        "title": "Register",
+        "heading": "Register Account",
+        "sub-heading": "Get your free {appName} account now",
+        "form": {
+            "name": {
+                "label": "Name",
+                "placeholder": "Enter name"
+            },
+            "password-confirmation": {
+                "label": "Confirm Password",
+                "placeholder": "Enter confirm passwpord"
+            },
+            "terms-aggre-label": "By registering you agree to the {appName}",
+            "terms-use-link": "Terms of Use"
+        },
+        "already-have-an-account": "Already have an account?"
+    },
+    "forgot-password": {
+        "title": "Forgot Password",
+        "heading": "Forgot your password?",
+        "sub-heading": "No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",
+        "form": {
+            "submit-button-text": "Email Password Reset Link"
+        },
+        "remember-it" : "Remember it?"
+    },
+     "reset-password": {
+        "title": "Reset Password",
+        "sub-heading": "Reset Password with {appName}"
     }
 }
