@@ -1,0 +1,26 @@
+{
+    "languages": {
+        "en": "English",
+        "pt": "Portuguese"
+    },
+    "login": {
+        "title": "Welcome Back!",
+        "sub-title": "Sign in to continue to {appName}.",
+        "form": {
+            "email": {
+                "label": "Email",
+                "placeholder": "Enter email"
+            },
+            "password": {
+                "label": "Password",
+                "placeholder": "Enter password"
+            },
+            "forgot-password": "Forgot password?",
+            "remember-me": "Remember me",
+            "submit-button-text": "Log In"
+        },
+        "sign-in-with": "- Sign in with -",
+        "dont-have-an-account": "Don't have an account?",
+        "sign-up": "Signup now"
+    }
+}
